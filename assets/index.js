@@ -65,15 +65,17 @@ function stopRightTimer() {
 function checkWinner() {
     if (!leftTimerActive && !rightTimerActive && (leftTime > 0 || rightTime > 0)) {
         const winnerDisplay = document.getElementById('winnerDisplay');
-        
-        if (leftTime > 0 && rightTime > 0) {
-            if (leftTime < rightTime) {
-                winnerDisplay.textContent = 'LANE 1 WINS!';
-            } else if (rightTime < leftTime) {
-                winnerDisplay.textContent = 'LANE 2 WINS!';
-            } else {
-                winnerDisplay.textContent = 'TIE!';
-            }
+
+        // Arredonda para a mesma precisão do display
+        const leftFinal = Math.floor(leftTime);
+        const rightFinal = Math.floor(rightTime);
+
+        if (leftFinal < rightFinal) {
+            winnerDisplay.textContent = 'LANE 1 WINS!';
+        } else if (rightFinal < leftFinal) {
+            winnerDisplay.textContent = 'LANE 2 WINS!';
+        } else {
+            winnerDisplay.textContent = 'TIE!';
         }
     }
 }
