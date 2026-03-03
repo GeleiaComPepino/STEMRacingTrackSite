@@ -48,7 +48,8 @@ function startTimers() {
 
 function stopLeftTimer() {
     if (leftTimerActive) {
-        leftTime = Math.max(0, performance.now() - leftStartTime - TIME_OFFSET);
+        const displayValue = document.querySelectorAll('.seven-text')[0].textContent;
+        leftTime = parseFloat(displayValue) * 1000; // converte de volta para ms
         leftTimerActive = false;
         checkWinner();
     }
@@ -56,7 +57,8 @@ function stopLeftTimer() {
 
 function stopRightTimer() {
     if (rightTimerActive) {
-        rightTime = Math.max(0, performance.now() - rightStartTime - TIME_OFFSET);
+        const displayValue = document.querySelectorAll('.seven-text')[1].textContent;
+        rightTime = parseFloat(displayValue) * 1000;
         rightTimerActive = false;
         checkWinner();
     }
@@ -65,11 +67,10 @@ function stopRightTimer() {
 function checkWinner() {
     if (!leftTimerActive && !rightTimerActive && (leftTime > 0 || rightTime > 0)) {
         const winnerDisplay = document.getElementById('winnerDisplay');
-
-        // Arredonda para a mesma precisão do display
         const leftFinal = Math.floor(leftTime);
         const rightFinal = Math.floor(rightTime);
-
+        console.log('Left Time:', leftFinal, 'ms');
+        console.log('Right Time:', rightFinal, 'ms');
         if (leftFinal < rightFinal) {
             winnerDisplay.textContent = 'LANE 1 WINS!';
         } else if (rightFinal < leftFinal) {
